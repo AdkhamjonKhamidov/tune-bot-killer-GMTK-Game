@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://g3gho41qmov4"]
+
+[ext_resource type="Script" uid="uid://xentadqivstb" path="res://Scripts/pick_up.gd" id="1_6meu8"]
+[ext_resource type="Texture2D" uid="uid://de82v56ybu2m3" path="res://Assets/Sprites/coin-place-holder.png" id="1_bcnga"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6meu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bcnga")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5wq1"]
+
+[node name="Coin-placeholder" type="Area2D"]
+collision_mask = 8
+script = ExtResource("1_6meu8")
+
+[node name="coin-image" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6meu8")
+
+[node name="coin-collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k5wq1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

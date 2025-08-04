@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5mldhfl1cl0v"]
+
+[ext_resource type="Script" uid="uid://cjqkma5m0hnqi" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://j12n4yjkmmc7" path="res://Scenes/Game/Weapon/weapon.tscn" id="2_sjqwj"]
+[ext_resource type="Script" uid="uid://spd2v44gqpu6" path="res://Scripts/area_2d.gd" id="3_8jfvq"]
+[ext_resource type="Texture2D" uid="uid://b8sgvcey2ah4b" path="res://Assets/Sprites/player/human-player.png" id="3_sjqwj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+radius = 7.07107
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjqwj"]
+size = Vector2(23, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v0iea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sjqwj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_cvnsp")
+
+[node name="player-colider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cvnsp")
+
+[node name="Weapon" parent="player-colider" instance=ExtResource("2_sjqwj")]
+
+[node name="player-hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_8jfvq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player-hitbox"]
+position = Vector2(-2.5, 4)
+shape = SubResource("RectangleShape2D_sjqwj")
+debug_color = Color(0.849935, 0.000891574, 0.900151, 0.42)
+
+[node name="player-sprite-animation" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_v0iea")
+
+[connection signal="area_shape_entered" from="player-hitbox" to="player-hitbox" method="_on_area_shape_entered"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwacutk5n38o0"]
+
+[ext_resource type="Script" uid="uid://c6gq6ykt8l3pi" path="res://Scripts/enemy_bullet.gd" id="1_m80yj"]
+[ext_resource type="Texture2D" uid="uid://br3twu2dqlyd8" path="res://Assets/Sprites/player/bullet-place-holder.png" id="2_uiny7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbfgr"]
+size = Vector2(32, 16)
+
+[node name="enemy-bullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_m80yj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uiny7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(1.6, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kbfgr")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

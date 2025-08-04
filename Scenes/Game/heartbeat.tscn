@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bot3xsks7f7xl"]
+
+[ext_resource type="Script" uid="uid://da06or3yhbpne" path="res://Scripts/heartbeat.gd" id="1_e5a7w"]
+[ext_resource type="AudioStream" uid="uid://cl672lrx23nhc" path="res://Assets/Audio/Metronome/beep.wav" id="2_kyeq7"]
+
+[node name="heartbeat" type="Node2D"]
+script = ExtResource("1_e5a7w")
+
+[node name="BeepPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_kyeq7")

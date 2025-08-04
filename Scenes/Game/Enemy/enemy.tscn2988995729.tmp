@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx00yvee5n07e"]
+
+[ext_resource type="Script" uid="uid://bvlo720bx8yjw" path="res://enemy.gd" id="1_fgbqc"]
+[ext_resource type="Texture2D" uid="uid://b10h0d1t6ll3u" path="res://Assets/Sprites/enemy/pixil-frame-0 (1).png" id="2_7t3v6"]
+[ext_resource type="PackedScene" uid="uid://d21aryt2bs26p" path="res://Scenes/Game/killzone.tscn" id="2_fgbqc"]
+[ext_resource type="Script" uid="uid://dq1o6g1evkula" path="res://marker_2d.gd" id="2_rcir8"]
+[ext_resource type="PackedScene" uid="uid://d0yxdhv4rkrat" path="res://Scenes/Game/Enemy/enemy_hitbox.tscn" id="5_rcir8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7t3v6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7t3v6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcir8"]
+size = Vector2(17, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7b7qg"]
+size = Vector2(47, 44)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_fgbqc")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("2_rcir8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
+rotation = -1.5708
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_7t3v6")
+
+[node name="Killzone" parent="." instance=ExtResource("2_fgbqc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(-0.5, 1)
+scale = Vector2(1.25, 1.25)
+shape = SubResource("RectangleShape2D_rcir8")
+
+[node name="enemy-hitbox" parent="." instance=ExtResource("5_rcir8")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy-hitbox"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_7b7qg")
+debug_color = Color(0.875137, 0.116072, 0.786448, 0.42)

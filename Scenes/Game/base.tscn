@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5flasl42exqn"]
+
+[ext_resource type="PackedScene" uid="uid://b5mldhfl1cl0v" path="res://Scenes/Game/player.tscn" id="1_31hd7"]
+[ext_resource type="PackedScene" uid="uid://bfilrawn16pry" path="res://Scenes/player_ui.tscn" id="1_jdayy"]
+[ext_resource type="PackedScene" uid="uid://bot3xsks7f7xl" path="res://Scenes/Game/heartbeat.tscn" id="2_1w1q6"]
+[ext_resource type="PackedScene" uid="uid://g3gho41qmov4" path="res://Scenes/Game/pick-up.tscn" id="3_6qyon"]
+[ext_resource type="PackedScene" uid="uid://dbsufwg6l3da1" path="res://Scenes/Game/tiles.tscn" id="5_8nfiu"]
+[ext_resource type="PackedScene" uid="uid://cx00yvee5n07e" path="res://Scenes/Game/Enemy/enemy.tscn" id="6_e7jg4"]
+[ext_resource type="PackedScene" uid="uid://c8h1dhi26v1vc" path="res://Scenes/Game/Enemy/shooter.tscn" id="7_6xb6l"]
+[ext_resource type="Script" uid="uid://b0ugdj74aayea" path="res://Scripts/spawner.gd" id="8_3hpc5"]
+
+[node name="Base" type="Node2D"]
+
+[node name="PlayerUi" parent="." instance=ExtResource("1_jdayy")]
+anchors_preset = -1
+anchor_right = 0.0
+anchor_bottom = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -15)
+offset = Vector2(0, -1)
+anchor_mode = 0
+
+[node name="Player" parent="." instance=ExtResource("1_31hd7")]
+position = Vector2(324, 215)
+
+[node name="Heartbeat" parent="Player" instance=ExtResource("2_1w1q6")]
+position = Vector2(-324, -215)
+
+[node name="Coin-placeholder" parent="." instance=ExtResource("3_6qyon")]
+position = Vector2(66, 208)
+
+[node name="Tiles" parent="." instance=ExtResource("5_8nfiu")]
+
+[node name="Enemy-follower" parent="." instance=ExtResource("6_e7jg4")]
+position = Vector2(65, 263)
+
+[node name="Shooter" parent="." instance=ExtResource("7_6xb6l")]
+position = Vector2(505, 60)
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("8_3hpc5")
+
+[connection signal="beep_fire" from="Player/Heartbeat" to="PlayerUi" method="_on_heartbeat_beep_fire"]
+[connection signal="take_damage" from="Player/Heartbeat" to="Player/Heartbeat" method="_on_take_damage"]
